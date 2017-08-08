@@ -16,7 +16,10 @@ class Post(models.Model):
         self.save()
 
     def text128(self):
-        return self.text[0:127]
+        if len(self.text) > 128:
+           return self.text[0:127]
+        else:
+           return self.text
 
     def __str__(self):
         return self.title
