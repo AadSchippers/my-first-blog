@@ -15,9 +15,9 @@ class Post(models.Model):
         self.published_date = timezone.now()
         self.save()
 
-    def text128(self):
-        if len(self.text) > 128:
-           return self.text[0:127]
+    def textshort(self):
+        if len(self.text) > 256:
+           return self.text[0:255]
         else:
            return self.text
 
