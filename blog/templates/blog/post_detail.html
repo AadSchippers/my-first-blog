@@ -1,6 +1,8 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+<h2><a href="{% url 'comment_new' pk=post.pk %}" class=new-form>New comment</a></h2>
+<br>
    <div class="post">
         <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
         <div class="date">
@@ -12,5 +14,14 @@
         </div>
         <p>{{ post.text|linebreaksbr }}</p>
         <h3><a href="/">back</a></h3>
+        {% for comment in comments %}
+            <div class="comment">
+                <h3>comment by: {{ comment.author }}</h3>
+                <div class="date">
+                     <p>created: {{ comment.created_date }}</p>
+                </div>
+                <p>{{ comment.text|linebreaksbr }}</p>
+            </div>
+        {% endfor %}
    </div>
 {% endblock %}

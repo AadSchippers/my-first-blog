@@ -17,7 +17,8 @@ body {
 }
 
 .content {
-    margin-left: 40px;
+    margin-left: 20px;
+    padding: 20px 20px 20px 40px;
 }
 
 h1, h1 a, h1 a:visited, h1 a:active {
@@ -45,11 +46,19 @@ h1, h1 a, h1 a:visited, h1 a:active {
     margin-right: 20px;
 }
 
+.new-form, .new-form h2, .new-form:hover, .new-form:visited {
+    color: #700394;
+    float: right;
+    font-size: 16pt;
+    font-weight: bold;
+    margin-right: 0px;
+}
+
 .post {
     margin-bottom: 70px;
 }
 
-.post h2 a, .post h2 a:visited {
+.post h2, .post h2 a, .post h2 a:visited {
     color: #CF3DFF;
     font-family: 'Oswald';
 }
@@ -57,5 +66,15 @@ h1, h1 a, h1 a:visited, h1 a:active {
 .post h3 a, .post h3 a:visited {
     color: #CF3DFF;
     font-size: 12pt;
+    font-family: 'Oswald';
+}
+
+.comment {
+    margin-left: 20px;
+}
+
+.comment h3 {
+    color: #CF3DFF;
+    font-size: 10pt;
     font-family: 'Oswald';
 }
