@@ -7,14 +7,14 @@ from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 
 def post_list(request):
-    username = request.user.username
-    if username == 'Anonymous':
+    user = request.user
+    if user.is_authenticated:
+        login(request, user)
+    else:
         username = 'anonymous'
         password = 'geenwachtwoord'
-    else:
-        password = request.user.password
-    user = authenticate(request, username=username, password=password)
-    login(request, user)
+        user = authenticate(request, username=username, password=password)
+        login(request, user)
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     return render(request, 'blog/post_list.html', {'posts': posts})
 
