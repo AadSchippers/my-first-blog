@@ -1,11 +1,20 @@
 from django.shortcuts import render
 from django.utils import timezone
+from django.contrib.auth import authenticate, login
 from .models import Post, Comment
 from .forms import PostForm, PostComment
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 
 def post_list(request):
+    username = request.user.username
+    password = request.user.password
+    user = authenticate(request, username=username, password=password)
+    if user is None:
+        username = 'anonymous'
+        password = 'geenwachtwoord'
+        user = authenticate(request, username=username, password=password)
+    login(request, user)
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     return render(request, 'blog/post_list.html', {'posts': posts})
 
