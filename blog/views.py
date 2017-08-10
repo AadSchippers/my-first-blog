@@ -1,29 +1,26 @@
 from django.shortcuts import render
 from django.utils import timezone
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.views import login
 from .models import Post, Comment
 from .forms import PostForm, PostComment
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 
+
 def post_list(request):
-    user = request.user
-    if user.is_authenticated:
-        login(request, user)
-    else:
-        username = 'anonymous'
-        password = 'geenwachtwoord'
-        user = authenticate(request, username=username, password=password)
-        login(request, user)
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    comments = Comment.objects.filter(post=post).order_by('-created_date')
+    comments = Comment.objects.filter(post=post).order_by('created_date')
     return render(request, 'blog/post_detail.html', {'post': post, 'comments': comments})
 
 def post_new(request):
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
     form = PostForm()
     if request.method == "POST":
        form = PostForm(request.POST)
@@ -50,3 +47,7 @@ def comment_new(request, pk):
     else:
        form = PostComment()
     return render(request, 'blog/post_comment.html', {'form': form})
+
+def bloglogout(request):
+    logout(request)
+    return redirect('post_list')

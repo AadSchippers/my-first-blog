@@ -1,7 +1,7 @@
 .page-header {
     background-color: #C4C4C4;
     margin-top: 0;
-    padding: 20px 20px 20px 40px;
+    padding: 20px 20px 30px 40px;
 }
 
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
@@ -27,6 +27,11 @@ h1, h1 a, h1 a:visited, h1 a:active {
     font-family: 'Oswald';
 }
 
+h2, h2 a, h2 a:visited {
+    color: #CF3DFF;
+    font-family: 'Oswald';
+}
+
 .date {
     color: #4040FF;
 }
@@ -40,9 +45,9 @@ h1, h1 a, h1 a:visited, h1 a:active {
 }
 
 .top-menu, .top-menu:hover, .top-menu:visited {
-    color: #ffffff;
+    color: #700394;
     float: right;
-    font-size: 26pt;
+    font-size: 14pt;
     margin-right: 20px;
 }
 
