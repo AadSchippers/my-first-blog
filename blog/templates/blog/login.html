@@ -1,13 +1,13 @@
 {% extends 'blog/base.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Log in{% endblock %}
 
 {% block content %}
-  <h2>Please login before posting new content</h2>
+  <h2>Please log in before posting new content</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Login</button>
-    <h2><a href="/">...or make a new account</a></h2>
+    <button type="submit">Log in</button>
+    <h2><a href="/register">...or register as a new user</a></h2>
   </form>
 {% endblock %}

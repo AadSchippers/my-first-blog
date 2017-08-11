@@ -1,11 +1,12 @@
-from django.shortcuts import render
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import login
 from .models import Post, Comment
-from .forms import PostForm, PostComment
-from django.shortcuts import render, get_object_or_404
-from django.shortcuts import redirect
+from .forms import PostForm, PostComment, RegisterForm
+from django.shortcuts import render, get_object_or_404, redirect
+from django.core import validators
+from django import forms
+from django.utils.translation import gettext as _
 
 
 def post_list(request):
@@ -35,6 +36,9 @@ def post_new(request):
     return render(request, 'blog/post_edit.html', {'form': form})
 
 def comment_new(request, pk):
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
     form = PostComment()
     if request.method == "POST":
        form = PostComment(request.POST)
@@ -51,3 +55,17 @@ def comment_new(request, pk):
 def bloglogout(request):
     logout(request)
     return redirect('post_list')
+
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('/')
+    else:
+        form = RegisterForm()
+    return render(request, 'blog/register.html', {'form': form})

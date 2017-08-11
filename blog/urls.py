@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^post/comment/(?P<pk>\d+)/$', views.comment_new, name='comment_new'),
     url(r'^logout/$', views.bloglogout, name ='logout'),
     url(r'^login/$', auth_views.login, {'template_name': 'blog/login.html'}, name='login'),
+    url(r'^register/$', views.register, name='register'),
 ]
