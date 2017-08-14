@@ -1,6 +1,7 @@
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import login
+from django.contrib.auth.decorators import login_required
 from .models import Post, Comment
 from .forms import PostForm, PostComment, RegisterForm
 from django.shortcuts import render, get_object_or_404, redirect
@@ -18,10 +19,8 @@ def post_detail(request, pk):
     comments = Comment.objects.filter(post=post).order_by('created_date')
     return render(request, 'blog/post_detail.html', {'post': post, 'comments': comments})
 
+@login_required(login_url='/login/')
 def post_new(request):
-    user = request.user
-    if not user.is_authenticated:
-        return redirect('login')
     form = PostForm()
     if request.method == "POST":
        form = PostForm(request.POST)
@@ -35,17 +34,17 @@ def post_new(request):
        form = PostForm()
     return render(request, 'blog/post_edit.html', {'form': form})
 
+#@login_required(login_url='/login/')
 def comment_new(request, pk):
-    user = request.user
-    if not user.is_authenticated:
-        return redirect('login')
     form = PostComment()
     if request.method == "POST":
        form = PostComment(request.POST)
        if form.is_valid():
           comment = form.save(commit=False)
           comment.post = Post.objects.get(pk=pk)
-          comment.author = request.user
+          user = request.user
+          if user.is_authenticated:
+              comment.author = request.user
           comment.save()
           return redirect('post_detail', pk=pk)
     else:

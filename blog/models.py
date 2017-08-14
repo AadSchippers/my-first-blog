@@ -25,7 +25,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey('Post')
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey('auth.User', null=True)
     text = models.TextField()
     created_date = models.DateTimeField(
             default=timezone.now)
