@@ -16,11 +16,7 @@
         <h3><a href="/">back</a></h3>
         {% for comment in comments %}
             <div class="comment">
-                {% if user.is_authenticated %}
-                  <h3>comment by: {{ comment.author }}</h3>
-                {% else %}
-                  <h3>comment by: anonymous</h3>
-                {% endif %}
+                <h3>comment by: {{ comment.author }}</h3>
                 <div class="date">
                      <p>created: {{ comment.created_date }}</p>
                 </div>
