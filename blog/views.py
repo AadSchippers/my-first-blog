@@ -34,7 +34,6 @@ def post_new(request):
        form = PostForm()
     return render(request, 'blog/post_edit.html', {'form': form})
 
-#@login_required(login_url='/login/')
 def comment_new(request, pk):
     form = PostComment()
     if request.method == "POST":
@@ -42,8 +41,7 @@ def comment_new(request, pk):
        if form.is_valid():
           comment = form.save(commit=False)
           comment.post = Post.objects.get(pk=pk)
-          user = request.user
-          if user.is_authenticated:
+          if request.user.is_authenticated:
               comment.author = request.user
           comment.save()
           return redirect('post_detail', pk=pk)
