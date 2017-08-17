@@ -20,7 +20,7 @@ from mysite.config import *
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^&ttg-dqw8%_fo!#94jurbkx=@ltfh)zs5xq)0@65@44cc$0jk'
+#SECRET_KEY = imported from config.py
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = imported from config.py
