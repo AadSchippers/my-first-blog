@@ -2,6 +2,7 @@ from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import login
 from django.contrib.auth.decorators import login_required
+from django_otp.decorators import otp_required
 from .models import Post, Comment
 from .forms import PostForm, PostComment, RegisterForm
 from django.shortcuts import render, get_object_or_404, redirect
@@ -20,6 +21,8 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', {'post': post, 'comments': comments})
 
 @login_required(login_url='/login/')
+#@login_required
+#@otp_required
 def post_new(request):
     form = PostForm()
     if request.method == "POST":
